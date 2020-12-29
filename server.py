@@ -16,12 +16,12 @@ def getAll():
 # find By id
 
 
-@app.route('/employees/<int:ISBN>')
-def findById(ISBN):
-    return jsonify(employeeDao.findById(ISBN))
+@app.route('/employees/<int:EMPID>')
+def findById(EMPID):
+    return jsonify(employeeDao.findById(EMPID))
 
 # create
-# curl -X POST -d "{\"Title\":\"test\", \"Author\":\"some guy\", \"Price\":123}" http://127.0.0.1:5000/employees
+
 
 
 @app.route('/employees', methods=['POST'])
