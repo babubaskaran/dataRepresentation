@@ -1,8 +1,12 @@
 use datarepresentation;
 
-create table books(
-    -> ISBN int PRIMARY KEY,
-    -> title varchar(250),
-    -> author varchar(250),
-    -> price int
+create table employees(
+    -> EMPID int PRIMARY KEY,
+    -> First_Name varchar(100),
+    -> Last_Name varchar(100),
+    -> DEPCODE int,
+    -> ADDR1 varchar(100),
+    -> CITY varchar(100),
+    -> STATE varchar(100),
+    -> ZIP varchar(100)
     -> );

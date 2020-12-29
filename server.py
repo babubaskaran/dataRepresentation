@@ -1,5 +1,5 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify
-from BookDao import bookDao
+from EmployeeDao import employeeDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -10,64 +10,76 @@ def index():
 #get all
 
 
-@app.route('/books')
+@app.route('/employees')
 def getAll():
-    return jsonify(bookDao.getAll())
+    return jsonify(employeeDao.getAll())
 # find By id
 
 
-@app.route('/books/<int:ISBN>')
+@app.route('/employees/<int:ISBN>')
 def findById(ISBN):
-    return jsonify(bookDao.findById(ISBN))
+    return jsonify(employeeDao.findById(ISBN))
 
 # create
-# curl -X POST -d "{\"Title\":\"test\", \"Author\":\"some guy\", \"Price\":123}" http://127.0.0.1:5000/books
+# curl -X POST -d "{\"Title\":\"test\", \"Author\":\"some guy\", \"Price\":123}" http://127.0.0.1:5000/employees
 
 
-@app.route('/books', methods=['POST'])
+@app.route('/employees', methods=['POST'])
 def create():
    
     if not request.json:
         abort(400)
 
-    book = {
-        "ISBN": request.json["ISBN"],
-        "title": request.json["title"],
-        "author": request.json["author"],
-        "price": request.json["price"]
+    employee = {
+        "EMPID": request.json["EMPID"],
+        "First_Name": request.json["First_Name"],
+        "Last_Name": request.json["Last_Name"],
+        "DEPCODE": request.json["DEPCODE"],
+        "ADDR1": request.json["ADDR1"],
+        "CITY": request.json["CITY"],
+        "STATE": request.json["STATE"],
+        "ZIP": request.json["ZIP"]
     }
-    return jsonify(bookDao.create(book))
+    return jsonify(employeeDao.create(employee))
 
     return "served by Create "
 
 #update
-# curl -X PUT -d "{\"Title\":\"new Title\", \"Price\":999}" -H "content-type:application/json" http://127.0.0.1:5000/books/1
+# curl -X PUT -d "{\"Title\":\"new Title\", \"Price\":999}" -H "content-type:application/json" http://127.0.0.1:5000/employees/1
 
 
-@app.route('/books/<int:ISBN>', methods=['PUT'])
-def update(ISBN):
-    foundBook=bookDao.findById(ISBN)
-    print (foundBook)
-    if foundBook == {}:
+@app.route('/employees/<int:EMPID>', methods=['PUT'])
+def update(EMPID):
+    foundEmployee=employeeDao.findById(EMPID)
+    print (foundEmployee)
+    if foundEmployee == {}:
         return jsonify({}), 404
-    currentBook = foundBook
-    if 'title' in request.json:
-        currentBook['title'] = request.json['title']
-    if 'author' in request.json:
-        currentBook['author'] = request.json['author']
-    if 'price' in request.json:
-        currentBook['price'] = request.json['price']
-    bookDao.update(currentBook)
+    currentEmployee = foundEmployee
+    if 'First_Name' in request.json:
+        currentEmployee['First_Name'] = request.json['First_Name']
+    if 'Last_Name' in request.json:
+        currentEmployee['Last_Name'] = request.json['Last_Name']
+    if 'DEPCODE' in request.json:
+        currentEmployee['DEPCODE'] = request.json['DEPCODE']
+    if 'ADDR1' in request.json:
+        currentEmployee['ADDR1'] = request.json['ADDR1']
+    if 'CITY' in request.json:
+        currentEmployee['CITY'] = request.json['CITY']
+    if 'STATE' in request.json:
+        currentEmployee['STATE'] = request.json['STATE']
+    if 'ZIP' in request.json:
+        currentEmployee['ZIP'] = request.json['ZIP']
+    employeeDao.update(currentEmployee)
 
-    return jsonify(currentBook)
+    return jsonify(currentEmployee)
 
 #delete
-# curl -X DELETE http://127.0.0.1:5000/books/1
+# curl -X DELETE http://127.0.0.1:5000/employees/1
 
 
-@app.route('/books/<int:ISBN>', methods=['DELETE'])
-def delete(ISBN):
-    bookDao.delete(ISBN)
+@app.route('/employees/<int:EMPID>', methods=['DELETE'])
+def delete(EMPID):
+    employeeDao.delete(EMPID)
 
     return jsonify({"done": True})
 
