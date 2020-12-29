@@ -1,72 +1,84 @@
 import mysql.connector
-import dbconfig as cfg
-from django.conf import settings
-settings.configure(DEBUG=True)
+from mysql.connector import cursor
 
-class BookDAO:
-    db=""
-    def __init__(self): 
+class BookDao:
+    db = ""
+    def __init__(self):
         self.db = mysql.connector.connect(
-            host = cfg.mysql['host'],
-            user = cfg.mysql['user'],
-            password = cfg.mysql['password'],
-            database = cfg.mysql['database']
+            host = 'localhost',
+            user= 'root',
+            password = '',
+            database ='datarepresentation'
         )
+        #print ("connection made")
 
-    def create(self, values):
+    def create(self, book):
         cursor = self.db.cursor()
-        sql="insert into book (title,author, price) values (%s,%s,%s)"
+        sql = "insert into books (ISBN, title, author, price) values (%s,%s,%s,%s)"
+        values = [
+            book['ISBN'],
+            book['title'],
+            book['author'],
+            book['price']
+        ]
         cursor.execute(sql, values)
-
         self.db.commit()
         return cursor.lastrowid
 
     def getAll(self):
         cursor = self.db.cursor()
-        sql="select * from book"
+        sql = 'select * from books'
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
-        print(results)
+        #print(results)
         for result in results:
-            print(result)
-            returnArray.append(self.convertToDictionary(result))
+            resultAsDict = self.convertToDict(result)
+            returnArray.append(resultAsDict)
 
         return returnArray
 
-    def findByID(self, id):
+    def findById(self, ISBN):
         cursor = self.db.cursor()
-        sql="select * from book where id = %s"
-        values = (id,)
-
+        sql = 'select * from books where ISBN = %s'
+        values = [ ISBN ]
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        return self.convertToDictionary(result)
-
-    def update(self, values):
-        cursor = self.db.cursor()
-        sql="update book set title= %s,author=%s, price=%s  where id = %s"
-        cursor.execute(sql, values)
-        self.db.commit()
-    def delete(self, id):
-        cursor = self.db.cursor()
-        sql="delete from book where id = %s"
-        values = (id,)
-
-        cursor.execute(sql, values)
-
-        self.db.commit()
-        print("delete done")
-
-    def convertToDictionary(self, result):
-        colnames=['id','Title','Author', "Price"]
-        item = {}
+        return self.convertToDict(result)
         
+
+    def update(self, book):
+       cursor = self.db.cursor()
+       sql = "update books set title = %s, author = %s, price = %s where ISBN = %s"
+       values = [
+           book['title'],
+           book['author'],
+           book['price'],
+           book['ISBN']
+
+       ]
+       cursor.execute(sql, values)
+       self.db.commit()
+       return book
+
+    def delete(self, ISBN):
+       cursor = self.db.cursor()
+       sql = 'delete from books where ISBN = %s'
+       values = [ISBN]
+       cursor.execute(sql, values)
+       
+       return {}
+
+
+
+    def convertToDict(self, result):
+        colnames = ['ISBN','title', 'author', 'price']
+        book = {}
+
         if result:
-            for i, colName in enumerate(colnames):
+            for i , colName in enumerate(colnames):
                 value = result[i]
-                item[colName] = value
-        
-        return item
-        
-bookDAO = BookDAO()
+                book[colName] = value
+        return book
+
+bookDao = BookDao()
