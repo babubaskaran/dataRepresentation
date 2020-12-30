@@ -53,7 +53,7 @@ class EmployeeDao:
 
     def update(self, employee):
        cursor = self.db.cursor()
-       sql = "update employees set FirstName = %s, LastName = %s, DEPCODE = %s, ADDR1 = %s, CITY = %s, STATE = %s, ZIP = %s, where EMPID = %s"
+       sql = "update employees set FirstName = %s, LastName = %s, DEPCODE = %s, ADDR1 = %s, CITY = %s, STATE = %s, ZIP = %s where EMPID = %s"
        values = [
            employee['FirstName'],
            employee['LastName'],
