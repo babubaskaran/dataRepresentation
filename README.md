@@ -23,5 +23,5 @@ Data Representation module.  This repository contains server.py, EmployeeDAO.py 
 
 ![Capture1](https://user-images.githubusercontent.com/48861486/103320680-41ee0100-4a2e-11eb-8db2-eaf1378c108d.PNG)
 
-
+![Capture2](https://user-images.githubusercontent.com/48861486/103323158-731ffe80-4a39-11eb-9564-3de272fb1489.PNG)
 
