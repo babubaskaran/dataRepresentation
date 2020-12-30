@@ -32,8 +32,8 @@ def create():
 
     employee = {
         "EMPID": request.json["EMPID"],
-        "First_Name": request.json["First_Name"],
-        "Last_Name": request.json["Last_Name"],
+        "FirstName": request.json["FirstName"],
+        "LastName": request.json["LastName"],
         "DEPCODE": request.json["DEPCODE"],
         "ADDR1": request.json["ADDR1"],
         "CITY": request.json["CITY"],
@@ -55,10 +55,10 @@ def update(EMPID):
     if foundEmployee == {}:
         return jsonify({}), 404
     currentEmployee = foundEmployee
-    if 'First_Name' in request.json:
-        currentEmployee['First_Name'] = request.json['First_Name']
-    if 'Last_Name' in request.json:
-        currentEmployee['Last_Name'] = request.json['Last_Name']
+    if 'FirstName' in request.json:
+        currentEmployee['FirstName'] = request.json['FirstName']
+    if 'LastName' in request.json:
+        currentEmployee['LastName'] = request.json['LastName']
     if 'DEPCODE' in request.json:
         currentEmployee['DEPCODE'] = request.json['DEPCODE']
     if 'ADDR1' in request.json:

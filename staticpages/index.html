@@ -15,12 +15,12 @@
                     <td><input type="text" name="EMPID" id="idInput"></td>
                 </tr>
                 <tr>
-                    <td>First_Name</td>
-                    <td><input type="text" name="First_Name"></td>
+                    <td>FirstName</td>
+                    <td><input type="text" name="FirstName"></td>
                 </tr>
                 <tr>
-                    <td>Last_Name</td>
-                    <td><input type="text" name="Last_Name"></td>
+                    <td>LastName</td>
+                    <td><input type="text" name="LastName"></td>
                 </tr>
                 <tr>
                     <td>DEPCODE</td>
@@ -55,7 +55,7 @@
             <button onClick="showCreate()">Create</button>
             <table id="employeeTable" class="table">
                 <tr>
-                    <th>EMPID</th><th>First_Name</th><th>Last_Name</th><th>DEPCODE</th><th>ADDR1</th><th>CITY</th><th>STATE</th><th>ZIP</th><th></th><th></th>
+                    <th>EMPID</th><th>FirstName</th><th>LastName</th><th>DEPCODE</th><th>ADDR1</th><th>CITY</th><th>STATE</th><th>ZIP</th><th></th><th></th>
                 </tr>
                 
             </table>
@@ -80,12 +80,11 @@
                 document.getElementById('create-button').style.display = "none"
                 document.getElementById('create-update').style.display = "block"
 
-            }
             function readEmployeeFromRow(rowElement){
                 employee = {}
                 employee.EMPID = rowElement.getAttribute("id");
-                employee.First_Name = rowElement.cells[1].firstChild.textContent
-                employee.Last_Name = rowElement.cells[2].firstChild.textContent
+                employee.FirstName = rowElement.cells[1].firstChild.textContent
+                employee.LastName = rowElement.cells[2].firstChild.textContent
                 employee.DEPCODE = rowElement.cells[3].firstChild.textContent
                 employee.ADDR1 = rowElement.cells[4].firstChild.textContent
                 employee.CITY = rowElement.cells[5].firstChild.textContent
@@ -102,8 +101,8 @@
                 form.querySelector('input[name="EMPID"]').value = employee.EMPID
                 form.querySelector('input[name="EMPID"]').disabled=true
                 
-                form.querySelector('input[name="First_Name"]').value = employee.First_Name
-                form.querySelector('input[name="Last_Name"]').value = employee.Last_Name
+                form.querySelector('input[name="FirstName"]').value = employee.FirstName
+                form.querySelector('input[name="LastName"]').value = employee.LastName
                 form.querySelector('input[name="DEPCODE"]').value = employee.DEPCODE
                 form.querySelector('input[name="ADDR1"]').value = employee.ADDR1
                 form.querySelector('input[name="CITY"]').value = employee.CITY
@@ -117,15 +116,14 @@
                     form.querySelector('input[name="EMPID"]').value = ''
                     form.querySelector('input[name="EMPID"]').disabled = false
 
-                    form.querySelector('input[name="First_Name"]').value = ''
-                    form.querySelector('input[name="Last_Name"]').value = ''
+                    form.querySelector('input[name="FirstName"]').value = ''
+                    form.querySelector('input[name="LastName"]').value = ''
                     form.querySelector('input[name="DEPCODE"]').value = ''
                     form.querySelector('input[name="ADDR1"]').value = ''
                     form.querySelector('input[name="CITY"]').value = ''
                     form.querySelector('input[name="STATE"]').value = ''
                     form.querySelector('input[name="ZIP"]').value = ''
-                    #form.querySelector('input[name="price"]').value = ''
-                }
+                 }
 
             function doCreate(){
                 console.log("in doCreate")
@@ -194,8 +192,8 @@
             }
             function updateTableRow(employee){
                 rowElement = document.getElementById(employee.EMPID)
-                rowElement.cells[1].firstChild.textContent = employee.First_Name
-                rowElement.cells[2].firstChild.textContent = employee.Last_Name
+                rowElement.cells[1].firstChild.textContent = employee.FirstName
+                rowElement.cells[2].firstChild.textContent = employee.LastName
                 rowElement.cells[3].firstChild.textContent = employee.DEPCODE
                 rowElement.cells[4].firstChild.textContent = employee.ADDR1
                 rowElement.cells[5].firstChild.textContent = employee.CITY
@@ -208,8 +206,8 @@
 
                 var employee = {}
                 employee.EMPID = form.querySelector('input[name="EMPID"]').value
-                employee.First_Name = form.querySelector('input[name="First_Name"]').value
-                employee.Last_Name = form.querySelector('input[name="Last_Name"]').value
+                employee.FirstName = form.querySelector('input[name="FirstName"]').value
+                employee.LastName = form.querySelector('input[name="LastName"]').value
                 employee.DEPCODE = form.querySelector('input[name="DEPCODE"]').value
                 employee.ADDR1 = form.querySelector('input[name="ADDR1"]').value
                 employee.CITY = form.querySelector('input[name="CITY"]').value
@@ -251,9 +249,9 @@
                 cell1 = rowElem.insertCell(0)
                 cell1.innerHTML = employee.EMPID
                 cell2 = rowElem.insertCell(1)
-                cell2.innerHTML = employee.First_Name
+                cell2.innerHTML = employee.FirstName
                 cell3 = rowElem.insertCell(2)
-                cell3.innerHTML = employee.Last_Name
+                cell3.innerHTML = employee.LastName
                 cell4 = rowElem.insertCell(3)
                 cell4.innerHTML = employee.DEPCODE
                 cell5 = rowElem.insertCell(4)

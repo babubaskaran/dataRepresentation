@@ -14,18 +14,16 @@ class EmployeeDao:
 
     def create(self, employee):
         cursor = self.db.cursor()
-        sql = "insert into employees (EMPID, First_Name, Last_Name, DEPCODE, ADDR1, CITY, STATE, ZIP) values (%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql = "insert into employees (EMPID, FirstName, LastName, DEPCODE, ADDR1, CITY, STATE, ZIP) values (%s,%s,%s,%s,%s,%s,%s,%s)"
         values = [
             employee['EMPID'],
-            employee['First_Name'],
-            employee['Last_Name'],
+            employee['FirstName'],
+            employee['LastName'],
             employee['DEPCODE'],
             employee['ADDR1'],
             employee['CITY'],
             employee['STATE'],
             employee['ZIP']
-
-
         ]
         cursor.execute(sql, values)
         self.db.commit()
@@ -55,10 +53,10 @@ class EmployeeDao:
 
     def update(self, employee):
        cursor = self.db.cursor()
-       sql = "update employees set First_Name = %s, Last_Name = %s, DEPCODE = %s, ADDR1 = %s, CITY = %s, STATE = %s, ZIP = %s, where EMPID = %s"
+       sql = "update employees set FirstName = %s, LastName = %s, DEPCODE = %s, ADDR1 = %s, CITY = %s, STATE = %s, ZIP = %s, where EMPID = %s"
        values = [
-           employee['First_Name'],
-           employee['Lastt_Name'],
+           employee['FirstName'],
+           employee['LastName'],
            employee['DEPCODE'],
            employee['ADDR1'],
            employee['CITY'],
@@ -82,7 +80,7 @@ class EmployeeDao:
 
 
     def convertToDict(self, result):
-        colnames = ['EMPID','First_Name', 'Last_Name', 'DEPCODE', 'ADDR1', 'CITY', 'STATE', 'ZIP']
+        colnames = ['EMPID','FirstName', 'LastName', 'DEPCODE', 'ADDR1', 'CITY', 'STATE', 'ZIP']
         employee = {}
 
         if result:
