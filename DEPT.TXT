@@ -1,0 +1,7 @@
+
+
+create table department(
+    -> DEPCODE int PRIMARY KEY,
+    -> DeptName varchar(100),
+    -> MGR_Name varchar(100)
+    -> );
