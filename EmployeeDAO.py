@@ -10,7 +10,7 @@ class EmployeeDao:
             password = '',
             database ='datarepresentation'
         )
-        #print ("connection made")
+        print ("connection made")
 
     def create(self, employee):
         cursor = self.db.cursor()

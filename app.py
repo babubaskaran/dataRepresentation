@@ -1,6 +1,7 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify
 from EmployeeDao import employeeDao
-from DepartmnetDAO import departmentDao
+from DepartmenDao import departmenDao
+
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -89,18 +90,33 @@ if __name__ == "__main__":
     app.run(debug=True)
 #======================================================================================================================
 
+
+
+@app.route('/department')
+def getAll():
+    return jsonify(departmenDao.getAll())
+# find By id
+
+
+@app.route('/department/<int:DEPCODE>')
+def findById(DEPCODE):
+    return jsonify(departmenDao.findById(DEPCODE))
+
+# create
+
+
 @app.route('/department', methods=['POST'])
 def create():
    
     if not request.json:
         abort(400)
 
-    department = {
+    departmen = {
         "DEPCODE": request.json["DEPCODE"],
         "DEPTNAME": request.json["DEPTNAME"],
         "MGR_Name": request.json["MGR_Name"]
     }
-    return jsonify(departmentDao.create(department))
+    return jsonify(departmenDao.create(departmen))
 
     return "served by Create "
 
@@ -110,18 +126,18 @@ def create():
 
 @app.route('/department/<int:DEPCODE>', methods=['PUT'])
 def update(DEPCODE):
-    foundDepartment=departmentDao.findById(DEPCODE)
-    print (foundDepartment)
-    if foundDepartment == {}:
+    foundDepartmen=departmenDao.findById(DEPCODE)
+    print (foundDepartmen)
+    if foundDepartmen == {}:
         return jsonify({}), 404
-    currentDepartment = foundDepartment
+    currentDepartmen = foundDepartmen
     if 'DEPTNAME' in request.json:
-        currentDepartment['DEPTNAME'] = request.json['DEPTNAME']
+        currentDepartmen['DEPTNAME'] = request.json['DEPTNAME']
     if 'MGR_Name' in request.json:
-        currentDepartment['MGR_Name'] = request.json['MGR_Name']
-    departmentDao.update(currentDepartment)
+        currentDepartmen['MGR_Name'] = request.json['MGR_Name']
+    departmenDao.update(currentDepartmen)
 
-    return jsonify(currentDepartment)
+    return jsonify(currentDepartmen)
 
 #delete
 # curl -X DELETE http://127.0.0.1:5000/employees/1
@@ -129,7 +145,7 @@ def update(DEPCODE):
 
 @app.route('/department/<int:DEPCODE>', methods=['DELETE'])
 def delete(DEPCODE):
-    departmentDao.delete(DEPCODE)
+    departmenDao.delete(DEPCODE)
 
     return jsonify({"done": True})
 

@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import cursor
 
-class DepartmentDao:
+class DepartmenDao:
     db = ""
     def __init__(self):
         self.db = mysql.connector.connect(
@@ -10,15 +10,15 @@ class DepartmentDao:
             password = '',
             database ='datarepresentation'
         )
-        #print ("connection made")
+        print ("connection made")
 
-    def create(self, department):
+    def create(self, departmen):
         cursor = self.db.cursor()
-        sql = "insert into department (DEPCODE, DEPTNAME , MGR_Name) values (%s,%s,%s)"
+        sql = "insert into department (DEPCODE, DEPTNAME, MGR_Name) values (%s,%s,%s)"
         values = [
-            department['DEPCODE'],
-            department['DEPTNAME'],
-            department['MGR_Name']
+            departmen['DEPCODE'],
+            departmen['DEPTNAME'],
+            departmen['MGR_Name']
         ]
         cursor.execute(sql, values)
         self.db.commit()
@@ -46,17 +46,17 @@ class DepartmentDao:
         return self.convertToDict(result)
         
 
-    def update(self, department):
+    def update(self, departmen):
        cursor = self.db.cursor()
        sql = "update department set DEPTNAME = %s, MGR_Name = %s where DEPCODE = %s"
        values = [
-           department['DEPTNAME'],
-           department['MGR_Name'],
-           department['DEPCODE'],
+           departmen['DEPTNAME'],
+           departmen['MGR_Name'],
+           departmen['DEPCODE'],
         ]
        cursor.execute(sql, values)
        self.db.commit()
-       return department
+       return departmen
 
     def delete(self, DEPCODE):
        cursor = self.db.cursor()
@@ -70,12 +70,12 @@ class DepartmentDao:
 
     def convertToDict(self, result):
         colnames = ['DEPCODE','DEPTNAME', 'MGR_Name']
-        department = {}
+        departmen = {}
 
         if result:
             for i , colName in enumerate(colnames):
                 value = result[i]
-                department[colName] = value
-        return department
+                departmen[colName] = value
+        return departmen
 
-departmentDao = DepartmentDao()
+departmenDao = DepartmenDao()
