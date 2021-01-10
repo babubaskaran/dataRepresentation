@@ -28,7 +28,7 @@ Data Representation module.  This repository contains server.py, EmployeeDAO.py 
 
 ## Contents
 
-serve: app.py
+server: app.py
 
 website : employee.html and department.html
 
