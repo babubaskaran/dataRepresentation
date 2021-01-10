@@ -25,3 +25,16 @@ Data Representation module.  This repository contains server.py, EmployeeDAO.py 
 
 ![Capture2](https://user-images.githubusercontent.com/48861486/103323158-731ffe80-4a39-11eb-9564-3de272fb1489.PNG)
 
+
+## Contents
+
+serve: app.py
+
+website : employee.html and department.html
+
+DAO : EmployeeDAO.py and DepartmenDAO.py
+
+DB Config : dbconfig.py
+
+Virtual Environment : requirements.txt
+
