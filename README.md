@@ -38,3 +38,25 @@ DB Config : dbconfig.py
 
 Virtual Environment : requirements.txt
 
+## Virutal Flask Server
+
+### Installing packages
+
+pip install flask
+pip install mysql-connecotr-python
+
+Run the following on your local server in the cmder command line
+
+python -m venv venv
+
+.\venv\scripts\activate.bat
+
+pip freeze > requirements.txt
+
+#### packages used on this project
+
+pip freeze 
+
+#### Exit
+
+deactivate
