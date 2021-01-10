@@ -2,8 +2,6 @@ from flask import Flask, url_for, request, redirect, abort, jsonify
 from EmployeeDao import employeeDao
 from DepartmenDao import departmenDao
 
-
-
 app = Flask(__name__, static_url_path="", static_folder="staticpages")
 
 
@@ -33,7 +31,6 @@ def findById(EMPID):
 
 @app.route("/employees", methods=["POST"])
 def create():
-
     if not request.json:
         abort(400)
 
@@ -93,59 +90,55 @@ def delete(EMPID):
     return jsonify({"done": True})
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
-# ======================================================================================================================
+# ============================================= Start: department =================================================
 
 # get all
 
 
 @app.route("/department")
-def getAll():
-    return jsonify(departmenDao.getAll())
+def getAllDept():
+    return jsonify(departmenDao.getAllDept())
 
 
 # find By id
 
 
 @app.route("/department/<int:DEPCODE>")
-def findById2(DEPCODE):
-    return jsonify(departmenDao.findById2(DEPCODE))
+def findById2Dept(DEPCODE):
+    return jsonify(departmenDao.findById2Dept(DEPCODE))
 
 
 # create
 
 
-@app.route('/department',methods=['GET', 'POST'])
-@cross_origin()
-def create2():
-
-    response.headers.add("Access-Control-Allow-Origin", "*")
+@app.route("/department", methods=["GET", "POST"])
+def create2Dept():
     if not request.json:
         abort(400)
 
     departmen = {
         "DEPCODE": request.json["DEPCODE"],
-        "DEPTNAME": request.json["DEPTNAME"],
+        "DeptName": request.json["DeptName"],
         "MGR_Name": request.json["MGR_Name"]
     }
-    return jsonify(departmenDao.create2(departmen))
-    
+    return jsonify(departmenDao.create2Dept(departmen))
+
     return "served by Create2 "
+
 
 # update
 @app.route("/department/<int:DEPCODE>", methods=["PUT"])
-def update(DEPCODE):
-    foundDepartmen = departmenDao.findById2(DEPCODE)
+def updateDept(DEPCODE):
+    foundDepartmen = departmenDao.findById2Dept(DEPCODE)
     print(foundDepartmen)
     if foundDepartmen == {}:
         return jsonify({}), 404
     currentDepartmen = foundDepartmen
-    if "DEPTNAME" in request.json:
-        currentDepartmen["DEPTNAME"] = request.json["DEPTNAME"]
+    if "DeptName" in request.json:
+        currentDepartmen["DeptName"] = request.json["DeptName"]
     if "MGR_Name" in request.json:
         currentDepartmen["MGR_Name"] = request.json["MGR_Name"]
-    departmenDao.update(currentDepartmen)
+    departmenDao.updateDept(currentDepartmen)
 
     return jsonify(currentDepartmen)
 
@@ -153,13 +146,13 @@ def update(DEPCODE):
 # delete
 
 
-
 @app.route("/department/<int:DEPCODE>", methods=["DELETE"])
-def delete(DEPCODE):
-    departmenDao.delete(DEPCODE)
+def deleteDept(DEPCODE):
+    departmenDao.deleteDept(DEPCODE)
 
     return jsonify({"done": True})
 
+# ============================================= End: department =================================================
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -15,9 +15,9 @@ class EmployeeDao:
 
     def create(self, employee):
         cursor = self.db.cursor()
-        sql = "insert into employees (EMPID, FirstName, LastName, DEPCODE, ADDR1, CITY, STATE, ZIP) values (%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql = "insert into employees (FirstName, LastName, DEPCODE, ADDR1, CITY, STATE, ZIP) values (%s,%s,%s,%s,%s,%s,%s)"
         values = [
-            employee['EMPID'],
+            #employee['EMPID'],
             employee['FirstName'],
             employee['LastName'],
             employee['DEPCODE'],
