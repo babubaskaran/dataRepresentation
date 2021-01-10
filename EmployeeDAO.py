@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import cursor
 
+
 class EmployeeDao:
     db = ""
     def __init__(self):

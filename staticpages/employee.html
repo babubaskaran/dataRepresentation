@@ -8,38 +8,39 @@
     </head>
     <body>
         <div id="create-update" style="display:none">
-            <h2>create-edit</h2>
+            <h2>Add Employee</h2>
             <table id="createUpdateForm">
                 <tr>
-                    <td>EMPID</td>
-                    <td><input type="text" name="EMPID" id="idInput"></td>
+                    <td>Employee ID</td>
+                    <!--<td><input type="text" name="EMPID" id="idInput"></td>-->
+                    <td><input  type="number" name="EMPID" id="idInput" min="0" max="1000" step="1" value="0"></td>    
                 </tr>
                 <tr>
-                    <td>FirstName</td>
+                    <td>First Name</td>
                     <td><input type="text" name="FirstName"></td>
                 </tr>
                 <tr>
-                    <td>LastName</td>
+                    <td>Last Name</td>
                     <td><input type="text" name="LastName"></td>
                 </tr>
                 <tr>
-                    <td>DEPCODE</td>
-                    <td><input type="currency" name="DEPCODE"></td>
+                    <td>Department Code</td>
+                    <td><input  type="number" name="DEPCODE" id="DEPCODE" min="0" max="1000" step="10" value="0"></td>
                 </tr>
                 <tr>
-                    <td>ADDR1</td>
+                    <td>Address Line 1</td>
                     <td><input type="text" name="ADDR1"></td>
                 </tr>
                 <tr>
-                    <td>CITY</td>
+                    <td>City</td>
                     <td><input type="text" name="CITY"></td>
                 </tr>
                 <tr>
-                    <td>STATE</td>
+                    <td>State</td>
                     <td><input type="text" name="STATE"></td>
                 </tr>    
                 <tr>    
-                    <td>ZIP</td>
+                    <td>ZIP Code</td>
                     <td><input type="text" name="ZIP"></td>
                 </tr>
                 <tr>
@@ -55,7 +56,7 @@
             <button onClick="showCreate()">Create</button>
             <table id="employeeTable" class="table">
                 <tr>
-                    <th>EMPID</th><th>FirstName</th><th>LastName</th><th>DEPCODE</th><th>ADDR1</th><th>CITY</th><th>STATE</th><th>ZIP</th><th></th><th></th>
+                    <th>Employee ID</th><th>First Name</th><th>Last Name</th><th>Department Code</th><th>Address Line 1</th><th>City</th><th>State</th><th>ZIP Code</th><th></th><th></th>
                 </tr>
                 
             </table>

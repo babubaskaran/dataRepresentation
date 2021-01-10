@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import cursor
 
+
 class DepartmenDao:
     db = ""
     def __init__(self):
@@ -37,7 +38,7 @@ class DepartmenDao:
 
         return returnArray
 
-    def findById(self, DEPCODE):
+    def findById2(self, DEPCODE):
         cursor = self.db.cursor()
         sql = 'select * from department where DEPCODE = %s'
         values = [ DEPCODE ]
@@ -52,7 +53,8 @@ class DepartmenDao:
        values = [
            departmen['DEPTNAME'],
            departmen['MGR_Name'],
-           departmen['DEPCODE'],
+           departmen['DEPCODE']
+
         ]
        cursor.execute(sql, values)
        self.db.commit()

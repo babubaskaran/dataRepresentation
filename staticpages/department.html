@@ -1,30 +1,31 @@
 <html>
     <head>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     </head>
     <body>
         <div id="create-update" style="display:none">
-            <h2>create-edit</h2>
+            <h2>Add Department</h2>
             <table id="createUpdateForm">
                 <tr>
-                    <td>DEPCODE</td>
-                    <td><input type="text" name="DEPCODE" id="idInput"></td>
+                    <td>Department Code</td>
+                    <td><input  type="number" name="DEPCODE" id="idInput" min="0" max="1000" step="10" value="0"></td>
                 </tr>
                 <tr>
-                    <td>DEPTNAME</td>
+                    <td>Department Name</td>
                     <td><input type="text" name="DEPTNAME"></td>
                 </tr>
                 <tr>
-                    <td>MGR_Name</td>
+                    <td>Manager Name</td>
                     <td><input type="text" name="MGR_Name"></td>
                 </tr>
                 <tr>
-                    <td></td><td>
-                        <button id="create-button" onclick="doCreate()">Create</button>     
+                    <td></td>
+                    <td>
+                        <button id="create-button" onclick="doCreate()">Create</button>
                         <button id="update-button" onclick="doUpdate()">update</button>
                     </td>
                 </tr>
@@ -35,22 +36,23 @@
             <button onClick="showCreate()">Create</button>
             <table id="departmenTable" class="table">
                 <tr>
-                    <th>DEPCODE</th><th>DEPTNAME</th><th>MGR_Name</th><th></th><th></th>
+                    <th>Department Code</th>
+                    <th>Department Name</th>
+                    <th>Manager Name</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-                
             </table>
-
         </div>
-
         <script>
-            function showCreate(){
+            function showCreate() {
                 document.getElementById('display').style.display = "none"
                 document.getElementById('update-button').style.display = "none"
                 document.getElementById('create-button').style.display = "block"
                 document.getElementById('create-update').style.display = "block"
 
             }
-            function showUpdate(thisElem){
+            function showUpdate(thisElem) {
                 var rowElement = thisElem.parentNode.parentNode;
                 departmen = readDepartmenFromRow(rowElement)
                 populateForm(departmen)
@@ -59,27 +61,27 @@
                 document.getElementById('update-button').style.display = "block"
                 document.getElementById('create-button').style.display = "none"
                 document.getElementById('create-update').style.display = "block"
-            
+
             }
-            function readDepartmenFromRow(rowElement){
+            function readDepartmenFromRow(rowElement) {
                 departmen = {}
                 departmen.DEPCODE = rowElement.getAttribute("id");
                 departmen.DEPTNAME = rowElement.cells[1].firstChild.textContent
                 departmen.MGR_Name = rowElement.cells[2].firstChild.textContent
-                
+
                 return departmen
 
             }
-            function populateForm(departmen){
+            function populateForm(departmen) {
                 var form = document.getElementById('createUpdateForm')
 
-                
+
                 form.querySelector('input[name="DEPCODE"]').value = departmen.DEPCODE
-                form.querySelector('input[name="DEPCODE"]').disabled=true
-                
+                form.querySelector('input[name="DEPCODE"]').disabled = true
+
                 form.querySelector('input[name="DEPTNAME"]').value = departmen.DEPTNAME
                 form.querySelector('input[name="MGR_Name"]').value = departmen.MGR_Name
-             }
+            }
             function clearForm() {
                     var form = document.getElementById('createUpdateForm')
 
@@ -89,116 +91,116 @@
 
                     form.querySelector('input[name="DEPTNAME"]').value = ''
                     form.querySelector('input[name="MGR_Name"]').value = ''
-                   
-                 }
 
-            function doCreate(){
+                }
+
+            function doCreate() {
                 console.log("in doCreate")
-                departmen= getDepartmenFromForm()
+                departmen = getDepartmenFromForm()
                 console.log(departmen)
                 $.ajax({
                     url:"/department",
-                    data:JSON.stringify(departmen),
-                    method:"POST",
-                    dataType:"JSON",
+                    data: JSON.stringify(departmen),
+                    method: "POST",
+                    dataType: "JSON",
                     contentType: "application/json; charset=utf-8",
-                    success:function(result){
-                        console.log(result) 
+                    success: function (result) {
+                        console.log(result)
                         addDepartmenToTable(departmen)
                         showDisplay()
                         clearForm()
 
                     },
-                    error:function(xhr,status,error){
-                        console.log("error"+error)
+                    error: function (xhr, status, error) {
+                        console.log("error" + error)
                     }
                 })
-               
+
             }
-            function doUpdate(){
+            function doUpdate() {
                 departmen = getDepartmenFromForm()
                 updateServer(departmen)
-                
+
             }
-            function updateServer(departmen){
-               $.ajax({
+            function updateServer(departmen) {
+                $.ajax({
                     url:"/department/"+departmen.DEPCODE,
-                    data:JSON.stringify(departmen),
-                    method:"PUT",
-                    dataType:"JSON",
+                    data: JSON.stringify(departmen),
+                    method: "PUT",
+                    dataType: "JSON",
                     contentType: "application/json; charset=utf-8",
-                    success:function (result){
+                    success: function (result) {
                         console.log(result)
                         updateTableRow(departmen)
                         showDisplay()
                         clearForm()
 
                     },
-                    error:function(xhr,status,error){
-                        console.log("error"+error)
+                    error: function (xhr, status, error) {
+                        console.log("error" + error)
                     }
                 })
             }
-            function doDelete(thisElem){
+            function doDelete(thisElem) {
                 var tableElement = document.getElementById('departmenTable');
                 var rowElement = thisElem.parentNode.parentNode;
                 var index = rowElement.rowIndex;
                 DEPCODE = rowElement.getAttribute("id");
                 $.ajax({
                     url:"/department/"+DEPCODE,
-                    method:"DELETE",
-                    dateType:"JSON",
-                    success:function(result){
+                    method: "DELETE",
+                    dateType: "JSON",
+                    success: function (result) {
                         tableElement.deleteRow(index);
                     },
-                    error:function(xhr,status,error){
+                    error: function (xhr, status, error) {
                         console.log(error)
                     }
                 })
-                
+
             }
-            function updateTableRow(departmen){
+            function updateTableRow(departmen) {
                 rowElement = document.getElementById(departmen.DEPCODE)
                 rowElement.cells[1].firstChild.textContent = departmen.DEPTNAME
                 rowElement.cells[2].firstChild.textContent = departmen.MGR_Name
-                
+
             }
-            function getDepartmenFromForm(){
+            function getDepartmenFromForm() {
                 var form = document.getElementById('createUpdateForm')
 
                 var departmen = {}
                 departmen.DEPCODE = form.querySelector('input[name="DEPCODE"]').value
                 departmen.DEPTNAME = form.querySelector('input[name="DEPTNAME"]').value
                 departmen.MGR_Name = form.querySelector('input[name="MGR_Name"]').value
-                
 
-                 return departmen
+
+                return departmen
             }
-             function showDisplay() {
-                    document.getElementById('display').style.display = "block"
-                    document.getElementById('create-update').style.display = "none"
+            function showDisplay() {
+                document.getElementById('display').style.display = "block"
+                document.getElementById('create-update').style.display = "none"
 
-                }
+            }
 
-            function populateTable(){
+            function populateTable() {
                 //ajax getAll
-               $.ajax({
-                   url:'http://127.0.0.1:5000/department',
-                   method:'GET',
-                   datatype:'JSON',
-                   success:function(results){
-                        for (departmen of results){
+                $.ajax({
+                    url:'http://127.0.0.1:5000/department',
+                    method: 'GET',
+                    datatype: 'JSON',
+                    success: function (results) {
+                        for (departmen of results) {
                              addDepartmenToTable(departmen)
                         }
-                   },
-                   error:function (xhr,status,error){
-                       console.log ("error "+error +" code:"+status)
-                   }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("error " + error + " code:" + status)
+                    }
 
-               })
-               
+                })
+
             }
-            function addDepartmenToTable(departmen){
+            function addDepartmenToTable(departmen) {
                 tableElem = document.getElementById("departmenTable")
                 rowElem = tableElem.insertRow(-1)
                 rowElem.setAttribute("id", departmen.DEPCODE)
@@ -210,7 +212,7 @@
                 cell3.innerHTML = departmen.MGR_Name
                 cell4 = rowElem.insertCell(3)
                 cell4.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
-                cell5 = rowElem.insertCell(9)
+                cell5 = rowElem.insertCell(4)
                 cell5.innerHTML = '<button onclick="doDelete(this)">delete</button>'
                  }
             populateTable()
